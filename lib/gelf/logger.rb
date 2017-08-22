@@ -33,9 +33,11 @@ module GELF
       end
 
       # Include tags in message hash
-      Array(log_tags).each_with_index do |tag_name, index|
-        message_hash.merge!("_#{tag_name}" => current_tags[index]) if current_tags[index]
-      end
+      #Array(log_tags).each_with_index do |tag_name, index|
+      #  message_hash.merge!("_#{tag_name}" => current_tags[index]) if current_tags[index]
+      #end
+
+      message_hash['uuid'] = RequestStore.store[:session_id] if RequestStore.store[:session_id]
 
       notify_with_level(level, message_hash)
     end
