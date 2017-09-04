@@ -57,26 +57,26 @@ module GELF
       end
     end
 
-    def <<(message)
-      notify_with_level(GELF::UNKNOWN, 'short_message' => message)
-    end
+#    def <<(message)
+#      notify_with_level(GELF::UNKNOWN, 'short_message' => message)
+#    end
 
-    def tagged(*tags)
-      new_tags = push_tags(*tags)
-      yield self
-    ensure
-      current_tags.pop(new_tags.size)
-    end
+#    def tagged(*tags)
+#      new_tags = push_tags(*tags)
+#      yield self
+#    ensure
+#      current_tags.pop(new_tags.size)
+#    end
 
-    def push_tags(*tags)
-      tags.flatten.reject{ |t| t.respond_to?(:empty?) ? !!t.empty? : !t }.tap do |new_tags|
-        current_tags.concat new_tags
-      end
-    end
+#    def push_tags(*tags)
+#      tags.flatten.reject{ |t| t.respond_to?(:empty?) ? !!t.empty? : !t }.tap do |new_tags|
+#        current_tags.concat new_tags
+#      end
+#    end
 
-    def current_tags
-      Thread.current[:gelf_tagged_logging_tags] ||= []
-    end
+#    def current_tags
+#      Thread.current[:gelf_tagged_logging_tags] ||= []
+#    end
   end
 
   # Graylog2 notifier, compatible with Ruby Logger.
